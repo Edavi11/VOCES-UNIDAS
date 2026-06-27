@@ -24,13 +24,13 @@ func handleReporte(w http.ResponseWriter, r *http.Request) {
 	}
 
 	nuevaAlerta := AlertaDB{
-		ReporterId: reporte.ReporterId,
+		ReporterId: reporte.ReporteroId,
 		Mensaje:    reporte.Mensaje,
-		TipoAlerta: reporte.TipoAlerta,
+		TipoAlerta: int32(reporte.Tipo),
 	}
 	// Guardar en la base de datos
 	DB.Create(&nuevaAlerta)
-	fmt.Printf("Alerta recibida y guardada de %s: %s\n", reporte.ReporterId, reporte.Mensaje)
+	fmt.Printf("Alerta recibida y guardada de %s: %s\n", reporte.ReporteroId, reporte.Mensaje)
 	w.WriteHeader(http.StatusOK)
 }
 

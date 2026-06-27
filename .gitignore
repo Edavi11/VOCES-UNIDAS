@@ -1,0 +1,9 @@
+# Archivos de base de datos
+*.db
+
+# Binarios de Go
+voces_unidas
+*.exe
+
+# Carpetas del IDE
+.vscode/
