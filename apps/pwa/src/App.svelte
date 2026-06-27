@@ -4,12 +4,14 @@
   import FormReporte from './components/FormReporte.svelte'
   import ListaReportes from './components/ListaReportes.svelte'
   import QRConectar from './components/QRConectar.svelte'
+  import InstalarApp from './components/InstalarApp.svelte'
   import { reportes, vista } from './lib/store'
   import { obtenerReportes } from './lib/db'
   import { iniciarSyncAuto } from './lib/sync'
 
   let installPrompt: any = null
   let mostrarBannerInstalar = false
+  let mostrarModalInstalar = false
 
   onMount(async () => {
     const locales = await obtenerReportes()
@@ -35,11 +37,16 @@
   })
 
   async function instalarApp() {
-    if (!installPrompt) return
-    installPrompt.prompt()
-    const { outcome } = await installPrompt.userChoice
-    if (outcome === 'accepted') mostrarBannerInstalar = false
-    installPrompt = null
+    if (installPrompt) {
+      // Chrome ya tiene el prompt listo — dispararlo directamente
+      installPrompt.prompt()
+      const { outcome } = await installPrompt.userChoice
+      if (outcome === 'accepted') mostrarBannerInstalar = false
+      installPrompt = null
+    } else {
+      // Otros navegadores — mostrar instrucciones manuales
+      mostrarModalInstalar = true
+    }
   }
 </script>
 
@@ -52,12 +59,21 @@
     <p class="tagline">Comunicación de emergencia</p>
   </header>
 
-  {#if mostrarBannerInstalar}
-    <div class="banner-instalar">
-      <span>📲 Instala la app para usarla sin internet</span>
-      <button on:click={instalarApp}>Instalar</button>
-      <button class="cerrar" on:click={() => mostrarBannerInstalar = false}>✕</button>
-    </div>
+  <div class="banner-instalar" class:visible={mostrarBannerInstalar}>
+    <span>📲 Instala la app para usarla sin internet</span>
+    <button on:click={instalarApp}>Instalar</button>
+    <button class="cerrar" on:click={() => mostrarBannerInstalar = false}>✕</button>
+  </div>
+
+  <!-- Botón fijo de instalar siempre visible para navegadores sin prompt -->
+  {#if !mostrarBannerInstalar}
+    <button class="btn-instalar-fijo" on:click={instalarApp}>
+      📲 Instalar app
+    </button>
+  {/if}
+
+  {#if mostrarModalInstalar}
+    <InstalarApp onCerrar={() => mostrarModalInstalar = false} />
   {/if}
 
   <EstadoConexion />
@@ -127,7 +143,7 @@
   }
 
   .banner-instalar {
-    display: flex;
+    display: none;
     align-items: center;
     gap: 0.75rem;
     padding: 0.75rem 1rem;
@@ -136,6 +152,7 @@
     font-size: 0.9rem;
     flex-wrap: wrap;
   }
+  .banner-instalar.visible { display: flex; }
   .banner-instalar span { flex: 1; }
   .banner-instalar button {
     background: #fff;
@@ -151,6 +168,21 @@
     background: transparent;
     color: rgba(255,255,255,0.7);
     padding: 0.35rem 0.5rem;
+  }
+  .btn-instalar-fijo {
+    position: fixed;
+    bottom: 5.5rem;
+    right: 1rem;
+    background: #c0392b;
+    color: #fff;
+    border: none;
+    padding: 0.6rem 1rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(192,57,43,0.5);
+    z-index: 50;
   }
 
   h1 { font-size: 1.1rem; font-weight: 800; letter-spacing: 0.05em; color: #fff; }
