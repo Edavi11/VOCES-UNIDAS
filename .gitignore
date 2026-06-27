@@ -1,9 +1,28 @@
-# Archivos de base de datos
+# Base de datos
 *.db
 
-# Binarios de Go
+# Binarios Go
 voces_unidas
 *.exe
+dist/
 
-# Carpetas del IDE
+# Node
+node_modules/
+apps/pwa/node_modules/
+apps/landing/node_modules/
+
+# Build output (generado por `npm run build:pwa`)
+apps/server/static/*
+!apps/server/static/.gitkeep
+
+# Env
+.env
+apps/pwa/.env
+
+# IDE
 .vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db

@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package alerta;
+
+option go_package = "./pb";
+
+enum TipoAlerta {
+  DESCONOCIDO = 0;
+  SALUD = 1;
+  ALIMENTOS = 2;
+  SEGURIDAD = 3;
+  INFRAESTRUCTURA = 4;
+}
+
+message Reporte {
+  string id = 1;
+  TipoAlerta tipo = 2;
+  float lat = 3;
+  float lng = 4;
+  string mensaje = 5;
+  int64 timestamp = 6;
+  string reportero_id = 7;
+}

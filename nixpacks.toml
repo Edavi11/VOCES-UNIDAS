@@ -1,0 +1,11 @@
+[phases.setup]
+nixPkgs = ["go", "nodejs_20", "npm"]
+
+[phases.build]
+cmds = [
+  "cd apps/pwa && npm install && npm run build",
+  "cd apps/server && go build -o ../../dist/server ."
+]
+
+[start]
+cmd = "./dist/server"
