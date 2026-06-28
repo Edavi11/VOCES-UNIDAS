@@ -18,9 +18,21 @@ export default defineConfig({
         display: 'standalone',
         start_url: '/app/',
         scope: '/app/',
+        id: '/app/',
+        orientation: 'portrait',
+        categories: ['utilities', 'social'],
         icons: [
           { src: '/app/icons/icon-192.png', sizes: '192x192', type: 'image/png', purpose: 'any maskable' },
           { src: '/app/icons/icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'any maskable' }
+        ],
+        screenshots: [
+          {
+            src: '/app/icons/icon-512.png',
+            sizes: '512x512',
+            type: 'image/png',
+            form_factor: 'narrow',
+            label: 'VOCES UNIDAS — Lista de alertas'
+          }
         ]
       },
       workbox: {
