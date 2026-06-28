@@ -19,6 +19,7 @@ apps/server/static/app/*
 !apps/server/static/app/icons/
 !apps/server/static/app/icons/icon-192.png
 !apps/server/static/app/icons/icon-512.png
+!apps/server/static/VocesUnidas.apk
 
 # Env
 .env
