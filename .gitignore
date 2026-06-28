@@ -37,3 +37,7 @@ Thumbs.db
 
 # Agentes y reglas internas (privado)
 .agents/
+
+# Credenciales (NUNCA subir)
+CREDENCIALES.md
+*.keystore

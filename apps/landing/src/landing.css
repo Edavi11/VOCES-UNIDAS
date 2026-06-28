@@ -383,6 +383,11 @@ a { color: inherit; }
 .reporte-card .tipo { font-size: 0.75rem; font-weight: 700; color: var(--texto-sub); margin-bottom: 0.4rem; }
 .reporte-card .msg { color: var(--texto); line-height: 1.5; margin-bottom: 0.5rem; }
 .reporte-card .meta { font-size: 0.75rem; color: #555; }
+.atribucion {
+  font-size: 0.75rem; color: #444; text-align: center;
+  padding: 1rem 0 0; margin-top: 0.5rem;
+}
+.atribucion a { color: #555; }
 
 /* ─── Instalar ──────────────────────────────────────── */
 .instalar {

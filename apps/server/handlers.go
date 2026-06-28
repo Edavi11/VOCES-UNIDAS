@@ -77,6 +77,7 @@ func handleSync(w http.ResponseWriter, r *http.Request) {
 		result := DB.Where(AlertaDB{ReporteId: rj.ReporteId}).FirstOrCreate(&alerta)
 		if result.RowsAffected > 0 {
 			hub.BroadcastAlerta(alerta)
+			go publicarEnResponseGrid(alerta)
 		}
 	}
 
